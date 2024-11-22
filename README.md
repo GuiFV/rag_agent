@@ -1,4 +1,4 @@
-# Interface with Langchain and LLama index for multiple use-cases
+# Interface for multiple LLM use-cases
 
 ## Features
 - Local execution
