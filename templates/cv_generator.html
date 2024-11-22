@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}CV Generator{% endblock %}
+
+{% block content %}
+    <h4>CV Generator</h4>
+    <form method="POST">
+        <div class="form-group">
+            <label for="job_description">Job Description</label>
+            <textarea class="form-control" id="job_description" name="job_description" rows="10" placeholder="Paste the job description here..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}
