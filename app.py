@@ -13,11 +13,17 @@ def index():
 
 @app.route('/cv_generator', methods=['GET', 'POST'])
 def cv_generator():
+    message = None
     if request.method == 'POST':
-        job_description = request.form['job_description']
-        return f"Job Description Received: {job_description}"
+        if 'load_cv' in request.form:
+            message = processors.process_cv()
 
-    return render_template('cv_generator.html')
+        else:
+            job_description = request.form['job_description']
+            processors.process_job_description(job_description)
+            message = f"Job Description Processed."
+
+    return render_template('cv_generator.html', message=message)
 
 
 @app.route('/basic_gpt', methods=['GET', 'POST'])
@@ -49,4 +55,4 @@ def reset_chat():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=8000, debug=True)

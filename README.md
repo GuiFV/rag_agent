@@ -1,7 +1,8 @@
-# Interface for multiple LLM use-cases
+# Your own local RAG Agent GPT
+## Interface for multiple LLM use-cases
 
 ## Features
-- Local execution
+- Local or API model execution
 - RAG capabilities
 - Agentic pipelines
 
@@ -10,6 +11,8 @@
 - CV Generator
 
 ## How to use
+- clone and start the project under a virtual environment `python -m venv .venv`
+- install requirements `pip install -r requirements.txt`
 - install Ollama
 - get an openai api key if you are not using local models
 - set secrets under OPENAI_API_KEY and LLAMA_CLOUD_API_KEY in a .env file on the root folder

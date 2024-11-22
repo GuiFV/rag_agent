@@ -3,12 +3,24 @@
 {% block title %}CV Generator{% endblock %}
 
 {% block content %}
-    <h4>CV Generator</h4>
-    <form method="POST">
-        <div class="form-group">
-            <label for="job_description">Job Description</label>
-            <textarea class="form-control" id="job_description" name="job_description" rows="10" placeholder="Paste the job description here..."></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+<h4>CV Generator</h4>
+
+<!-- Message Section -->
+    {% if message %}
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+
+<form method="POST">
+    <div class="form-group">
+        <label for="job_description">Job Description</label>
+        <textarea class="form-control" id="job_description" name="job_description" rows="10" placeholder="Paste the job description here..."></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    <!-- New button -->
+    <button type="submit" class="btn btn-secondary mt-3" name="load_cv">Load CV from Data Folder</button>
+</form>
 {% endblock %}
