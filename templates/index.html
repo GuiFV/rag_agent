@@ -3,8 +3,44 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <div class="jumbotron text-center">
-        <h1 class="display-4">Welcome to your RAG Agent!</h1>
-        <p class="lead">This app contains RAGs and Agents capabilities. Check out the modules on the Navbar</p>
+    <div class="jumbotron">
+        <div class="text-center mb-5">
+            <h1 class="display-4">Welcome to your local RAG Agent</h1>
+            <p class="lead">
+                Explore cutting-edge Retrieval-Augmented Generation (RAG) and agent-based capabilities.
+                <br>
+                Check out the navigation bar for available modules and tools.
+            </p>
+        </div>
+
+        <div class="features text-left mt-5">
+            <h3>Key Features:</h3>
+            <ul class="list-unstyled">
+                <li><strong>RAG and agentic capabilities:</strong>
+                    Use advanced LLM (Large Language Models) for retrieval and other tasks.</li>
+                <li><strong>Local and cloud model usage:</strong>
+                    Choose between local execution or using models via API.</li>
+            </ul>
+        </div>
+
+        <div class="usage text-left mt-4">
+            <h3>How to Use:</h3>
+            <ul class="list-unstyled">
+                <li>Change <code>settings.py</code> and insert secrets under <code>.env</code>.</li>
+                <li>
+                    Add files or resources as needed for RAG pipelines under their respective
+                    <code>data/module_name/source_data</code> folders.
+                </li>
+                <li>
+                    Manage and query databases by adding SQLite files to the <code>dbs</code> folder
+                    and/or a database access URL under <code>.env</code> file.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Adding extra space after the jumbotron -->
+    <div class="container mt-5">
+        <p class="text-muted text-center">This is a work in progress. More tools coming soon...</p>
     </div>
 {% endblock %}

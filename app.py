@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, jsonify, session
-from services import processors
+from services import main_processors, cv_processors
 import os
+
+from services.setup import ensure_data_folders
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -16,11 +18,11 @@ def cv_generator():
     message = None
     if request.method == 'POST':
         if 'load_cv' in request.form:
-            message = processors.process_cv()
+            message = cv_processors.process_file_cv()
 
         else:
             job_description = request.form['job_description']
-            processors.process_job_description(job_description)
+            cv_processors.process_cv(data_source=job_description)
             message = f"Job Description Processed."
 
     return render_template('cv_generator.html', message=message)
@@ -38,7 +40,7 @@ def basic_gpt():
         session['chat_history'].append({"role": "user", "content": user_input})
         session.modified = True
 
-        processed_input = processors.process_input(user_input, session['chat_history'])
+        processed_input = main_processors.process_input(user_input, session['chat_history'])
 
         session['chat_history'].append({"role": "assistant", "content": processed_input})
         session.modified = True
@@ -55,4 +57,5 @@ def reset_chat():
 
 
 if __name__ == '__main__':
+    ensure_data_folders()
     app.run(port=8000, debug=True)
