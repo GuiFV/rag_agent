@@ -12,3 +12,29 @@ body {
 form {
     margin-top: 1rem;
 }
+
+/* Darker green titles */
+h1, h4 {
+    color: #1e7e34; /* Darker bootstrap green */
+    font-weight: bold;
+}
+
+/* Darker green buttons */
+.btn-success {
+    font-weight: bold;
+    background-color: #1e7e34; /* Dark green background */
+    border-color: #1c7430; /* Even darker border */
+}
+.btn-success:hover {
+    background-color: #19692c; /* Button hover state */
+    border-color: #155d27;
+}
+
+/* Navbar brand - bold with darker green */
+.navbar-brand {
+    color: #1e7e34 !important; /* Darker bootstrap green */
+    font-weight: bold;
+    font-size: 1.8rem; /* Increased font size */
+    line-height: 1; /* Adjusted line height to prevent navbar height expansion */
+    padding: 0; /* Removed extra padding around the text */
+}
