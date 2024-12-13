@@ -21,6 +21,7 @@
 - set secrets under OPENAI_API_KEY and LLAMA_CLOUD_API_KEY in a .env file on the root folder
 - make necessary changes under settings.py
 - run the app `python app.py`
+- open `http://127.0.0.1:8123`
 
 ### Documents usage
 - add documents under the `data/module_name/source_data` folder for the corresponding module

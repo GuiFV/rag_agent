@@ -58,4 +58,4 @@ def reset_chat():
 
 if __name__ == '__main__':
     ensure_data_folders()
-    app.run(port=8000, debug=True)
+    app.run(port=8123, debug=True)
