@@ -4,7 +4,7 @@ import os
 
 from services.setup import ensure_data_folders
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder=os.path.join(os.getcwd(), 'templates'))
 app.secret_key = os.urandom(24)
 
 
@@ -48,6 +48,21 @@ def basic_gpt():
         return render_template('basic_gpt.html', chat_history=session['chat_history'])
 
     return render_template('basic_gpt.html', chat_history=session['chat_history'])
+
+
+@app.route('/basic_rag', methods=['GET', 'POST'])
+def basic_rag():
+    message = None
+    if request.method == 'POST':
+        if 'load_cv' in request.form:
+            message = cv_processors.process_file_cv()
+
+        else:
+            job_description = request.form['job_description']
+            cv_processors.process_cv(data_source=job_description)
+            message = f"Job Description Processed."
+
+    return render_template('basic_rag.html', message=message)
 
 
 @app.route('/reset_chat', methods=['POST'])
