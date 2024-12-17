@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request, jsonify, session
-from services import main_processors, cv_processors
 import os
 
+from flask import Flask, render_template, request, jsonify, session
+
+from services import main_processors, cv_processors
+from services.base_rag_processors import process_rag_chat
 from services.setup import ensure_data_folders
 
 app = Flask(__name__, template_folder=os.path.join(os.getcwd(), 'templates'))
@@ -18,7 +20,10 @@ def cv_generator():
     message = None
     if request.method == 'POST':
         if 'load_cv' in request.form:
-            message = cv_processors.process_file_cv()
+            message = main_processors.documents_loader(
+                source_data_path="data/cv_module/source_data",
+                persist_directory="data/cv_module/persist"
+            )
 
         else:
             job_description = request.form['job_description']
@@ -52,17 +57,39 @@ def basic_gpt():
 
 @app.route('/basic_rag', methods=['GET', 'POST'])
 def basic_rag():
+    if 'rag_chat_history' not in session:
+        session['rag_chat_history'] = []
+
     message = None
     if request.method == 'POST':
-        if 'load_cv' in request.form:
-            message = cv_processors.process_file_cv()
+        if 'load_files' in request.form:
+            message = main_processors.documents_loader(
+                source_data_path="data/base_rag_module/source_data",
+                persist_directory="data/base_rag_module/persist"
+            )
 
-        else:
-            job_description = request.form['job_description']
-            cv_processors.process_cv(data_source=job_description)
-            message = f"Job Description Processed."
+        elif 'user_input' in request.form:
 
-    return render_template('basic_rag.html', message=message)
+            # Process user input as part of the chat mechanism
+            user_input = request.form['user_input']
+
+            # Append user's message to chat history
+            session['rag_chat_history'].append({"role": "user", "content": user_input})
+            session.modified = True
+
+            # Process user query using RAG logic
+            response_content = process_rag_chat(
+                persist_directory="data/base_rag_module/persist",
+                query_text=user_input,
+                chat_history=session['rag_chat_history']
+            )
+
+            # Append assistant's response to chat history
+            session['rag_chat_history'].append({"role": "assistant", "content": response_content})
+
+            session.modified = True
+
+    return render_template('basic_rag.html', chat_history=session['rag_chat_history'], message=message)
 
 
 @app.route('/reset_chat', methods=['POST'])

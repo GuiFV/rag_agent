@@ -3,7 +3,9 @@
 {% block title %}Basic RAG{% endblock %}
 
 {% block content %}
-    <h4>Basic RAG</h4>
+    <h4>Basic RAG Chat</h4>
+
+    <!-- Chat Display -->
     <div class="chat-box" style="border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll;">
         {% for message in chat_history %}
             <div class="{{ message.role }}">
@@ -11,6 +13,8 @@
             </div>
         {% endfor %}
     </div>
+
+    <!-- Input Form -->
     <form method="POST" style="margin-top: 20px;">
         <div class="form-group">
             <label for="user_input">Your Message:</label>
@@ -18,5 +22,11 @@
         </div>
         <button type="submit" class="btn btn-success mt-3">Send</button>
         <button type="button" id="reset-button" class="btn btn-secondary mt-3">Reset Chat</button>
+        <button type="submit" class="btn btn-primary mt-3" name="load_files">Load Documents</button>
     </form>
+
+    <!-- Display optional message -->
+    {% if message %}
+        <div class="alert alert-info mt-3">{{ message }}</div>
+    {% endif %}
 {% endblock %}
