@@ -10,6 +10,8 @@
 
 ## Modules
 - Basic GPT
+- Basic RAG
+- CV Generator (under development)
 
 ## How to use
 ### Run project
