@@ -23,6 +23,34 @@ def agent_call(tools: list):
 
 
 def process_agent(primer, data_source, tools):
-    response = agent_call(tools).chat(f"Consider the following: {data_source}. Now, {primer}")
-    print(response)
-    return response
+    agent = agent_call(tools)
+    agent_response = agent.chat(f"Consider the following: {data_source}. Now, with this user input, {primer}")
+
+    # Access the chat history to get reasoning steps
+    chat_history = agent.chat_history
+    reasoning_steps = [message.content for message in chat_history if message.role == "assistant"]
+
+    # Access source nodes for document parts used
+    source_nodes = agent_response.source_nodes
+
+    # Final response object
+    final_response = agent_response.response
+
+    # Extract text content from the nodes
+    snippets = []
+    for node_with_score in source_nodes:
+        snippets.append(str(node_with_score.node))
+
+    print("Reasoning Steps:")
+    for step in reasoning_steps:
+        print(step)
+
+    print("Final Answer:")
+    print(final_response)
+
+    print("Sources Used:")
+    for snippet in snippets:
+        print(snippet)
+
+    return reasoning_steps, final_response, snippets
+

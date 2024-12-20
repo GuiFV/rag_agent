@@ -24,7 +24,12 @@ def cv_tools():
 
 
 def process_cv(data_source):
-    primer = "compile a new CV that best matches the job description, using available tools. Do not summarize work experiences, just adapt them"
+    primer = "compile a new CV that best matches the job description provided, using available tools. Do not summarize work experiences, just adapt them"
     tools = cv_tools()
 
-    process_agent(primer, data_source, tools)
+    reasoning_steps, final_answer, snippets = process_agent(primer, data_source, tools)
+    return {
+        "reasoning_steps": reasoning_steps,
+        "final_answer": final_answer,
+        "snippets": snippets,
+    }

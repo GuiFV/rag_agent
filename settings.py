@@ -28,7 +28,7 @@ print(np.__config__.show())
 
 USE_LOCAL_LLAMA = True  # Set False to use OpenAI API
 OPENAI_MODEL = "gpt-4"
-LLAMA_MODEL = "llama3"
+LLAMA_MODEL = "llama3.2"
 TEMPERATURE = 0.2  # Set the temperature for the models
 REQUEST_TIMEOUT = 60.0  # Set the request timeout for the models
 HUGGINGFACE_EMBEDDING_MODEL = "BAAI/bge-base-en-v1.5"

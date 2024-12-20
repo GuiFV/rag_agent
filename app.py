@@ -2,7 +2,7 @@ import os
 
 from flask import Flask, render_template, request, jsonify, session
 
-from services import main_processors, cv_processors
+from services import main_processors, cv_processors, rag_agent_processors
 from services.base_rag_processors import process_rag_chat
 from services.setup import ensure_data_folders
 
@@ -13,24 +13,6 @@ app.secret_key = os.urandom(24)
 @app.route('/')
 def index():
     return render_template('index.html')
-
-
-@app.route('/cv_generator', methods=['GET', 'POST'])
-def cv_generator():
-    message = None
-    if request.method == 'POST':
-        if 'load_cv' in request.form:
-            message = main_processors.documents_loader(
-                source_data_path="data/cv_module/source_data",
-                persist_directory="data/cv_module/persist"
-            )
-
-        else:
-            job_description = request.form['job_description']
-            cv_processors.process_cv(data_source=job_description)
-            message = f"Job Description Processed."
-
-    return render_template('cv_generator.html', message=message)
 
 
 @app.route('/basic_gpt', methods=['GET', 'POST'])
@@ -90,6 +72,73 @@ def basic_rag():
             session.modified = True
 
     return render_template('basic_rag.html', chat_history=session['rag_chat_history'], message=message)
+
+
+@app.route('/rag_agent', methods=['GET', 'POST'])
+def rag_agent():
+    message = None
+    final_answer = None
+    reasoning_steps = None
+    snippets = None
+
+    if request.method == 'POST':
+        if 'load_files' in request.form:
+            message = main_processors.documents_loader(
+                source_data_path="data/rag_agent/source_data",
+                persist_directory="data/rag_agent/persist"
+            )
+
+        else:
+            # Handle the agent-processing request
+            objective = request.form['objective']
+
+            # Call process_rag_agent to retrieve response details
+            result = rag_agent_processors.process_rag_agent(data_source=objective)
+
+            # Extract reasoning, answer, and snippets
+            reasoning_steps = result.get("reasoning_steps", [])
+            final_answer = result.get("final_answer", "No final answer generated.")
+            snippets = result.get("snippets", [])
+            message = "Agent processed successfully."
+
+    return render_template('rag_agent.html',
+        message=message,
+        reasoning_steps=reasoning_steps,
+        final_answer=final_answer,
+        snippets=snippets
+    )
+
+
+@app.route('/cv_generator', methods=['GET', 'POST'])
+def cv_generator():
+    message = None
+    final_answer = None
+    reasoning_steps = None
+    snippets = None
+
+    if request.method == 'POST':
+        if 'load_cv' in request.form:
+            message = main_processors.documents_loader(
+                source_data_path="data/cv_module/source_data",
+                persist_directory="data/cv_module/persist"
+            )
+
+        else:
+            job_description = request.form['job_description']
+
+            result = cv_processors.process_cv(data_source=job_description)
+
+            reasoning_steps = result.get("reasoning_steps", [])
+            final_answer = result.get("final_answer", "No response generated.")
+            snippets = result.get("snippets", [])
+            message = "CV processed successfully."
+
+    return render_template('cv_generator.html',
+        message=message,
+        reasoning_steps=reasoning_steps,
+        final_answer=final_answer,
+        snippets=snippets
+    )
 
 
 @app.route('/reset_chat', methods=['POST'])

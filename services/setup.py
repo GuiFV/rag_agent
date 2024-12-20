@@ -10,6 +10,11 @@ def ensure_data_folders():
         'base_rag_module/output',
         'base_rag_module/persist',
         'base_rag_module/source_data',
+
+        'rag_agent/output',
+        'rag_agent/persist',
+        'rag_agent/source_data',
+
         'cv_module/output',
         'cv_module/persist',
         'cv_module/source_data',
