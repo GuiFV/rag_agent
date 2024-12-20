@@ -43,6 +43,23 @@ class TestEndpoints(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.get_json(), {"status": "Chat history reset."})
 
+    def test_rag_agent_get(self):
+        """Test the rag_agent endpoint with a GET request."""
+        response = self.client.get('/rag_agent')
+        self.assertEqual(response.status_code, 200)
+
+    def test_rag_agent_post(self):
+        """Test the rag_agent endpoint with a POST request."""
+        response = self.client.post('/rag_agent', data={'objective': 'Test query'})
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('Agent processed successfully', response.get_data(as_text=True))
+
+    def test_rag_agent_invalid_method(self):
+        """Test the rag_agent endpoint with an unsupported HTTP method."""
+        response = self.client.delete('/rag_agent')
+        self.assertEqual(response.status_code, 405)
+        self.assertIn('Method Not Allowed', response.get_data(as_text=True))
+
 
 if __name__ == '__main__':
     unittest.main()
