@@ -20,8 +20,8 @@
 - activate virtual env `source .venv/bin/activate` (for windows: `.\.venv\Scripts\activate`)
 - install requirements `pip install -r requirements.txt`
 - install Ollama `https://ollama.com/`
-- get an OpenAI API key if you are not using local models
-- set secrets under OPENAI_API_KEY and LLAMA_CLOUD_API_KEY in a .env file on the root folder
+- (OPTIONAL) get an OpenAI API key if you are not using local models
+- (OPTIONAL) set secrets under OPENAI_API_KEY and LLAMA_CLOUD_API_KEY in a .env file on the root folder
 - make necessary changes under settings.py
 - run the app `python app.py`
 - open `http://127.0.0.1:8123`
