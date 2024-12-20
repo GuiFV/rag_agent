@@ -12,13 +12,13 @@ def query_engine_loader(source_data_folder):
         return None
 
     # Create a query engine from the vector store
-    query_engine = vector_store.as_query_engine(llm=llm)
+    query_engine = vector_store.as_query_engine(llm=llm, max_iterations=10)
     return query_engine
 
 
 def agent_call(tools: list):
     llm = load_llm()
-    agent = ReActAgent.from_tools(tools, llm=llm, verbose=True)
+    agent = ReActAgent.from_tools(tools, llm=llm, verbose=True, max_iterations=10)
     return agent
 
 

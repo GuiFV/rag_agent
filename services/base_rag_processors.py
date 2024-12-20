@@ -17,7 +17,7 @@ def process_rag_chat(persist_directory, query_text, chat_history=None):
     llm = load_llm()
 
     # Create chat engine
-    chat_engine = index.as_chat_engine(llm=llm)
+    chat_engine = index.as_chat_engine(llm=llm, max_iterations=5)
 
     # Combine chat history (if available) and the new user input
     if chat_history:
