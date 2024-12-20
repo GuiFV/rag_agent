@@ -11,6 +11,7 @@
 ## Modules
 - Basic GPT
 - Basic RAG
+- RAG Agent
 - CV Generator (under development)
 
 ## How to use
@@ -28,6 +29,6 @@
 ### Documents usage
 - add documents under the `data/module_name/source_data` folder for the corresponding module
 
-### Database usage
+### Database usage (under development)
 - add SQlite3 file under `dbs` folder
 - add a database url under .env file
