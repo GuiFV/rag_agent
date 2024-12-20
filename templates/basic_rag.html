@@ -9,7 +9,8 @@
     <div class="chat-box" style="border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll;">
         {% for message in chat_history %}
             <div class="{{ message.role }}">
-                <strong>{{ message.role.capitalize() }}:</strong> {{ message.content }}
+                <strong>{{ message.role.capitalize() }}:<br></strong> {{ message.content }}
+                <br><br>
             </div>
         {% endfor %}
     </div>
