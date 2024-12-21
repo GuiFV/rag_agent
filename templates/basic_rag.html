@@ -6,7 +6,7 @@
     <h4>Basic RAG Chat</h4>
 
     <!-- Chat Display -->
-    <div class="chat-box" style="border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll;">
+    <div class="chat-box" style="border: 1px solid #ccc; padding: 10px; height: calc(100vh - 300px); overflow-y: scroll;">
         {% for message in chat_history %}
             <div class="{{ message.role }}">
                 <strong>{{ message.role.capitalize() }}:</strong>
@@ -21,7 +21,7 @@
     <form method="POST" style="margin-top: 20px;">
         <div class="form-group">
             <label for="user_input">Your Message:</label>
-            <textarea class="form-control" id="user_input" name="user_input" rows="2" placeholder="Type your message here..."></textarea>
+            <textarea class="form-control" id="user_input" name="user_input" rows="3" placeholder="Type your message here..."></textarea>
         </div>
         <button type="submit" class="btn btn-success mt-3">Send</button>
         <button type="button" id="reset-button" class="btn btn-secondary mt-3">Reset Chat</button>
