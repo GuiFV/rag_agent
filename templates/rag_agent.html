@@ -31,7 +31,7 @@
     <h5 class="mt-4">Final Answer:</h5>
     <div class="card bg-light">
         <div class="card-body">
-            {{ final_answer }}
+            <pre>{{ final_answer|safe }}</pre>
         </div>
     </div>
     {% endif %}
@@ -41,7 +41,7 @@
     <h5 class="mt-4">Reasoning Steps:</h5>
     <ul class="list-group">
         {% for step in reasoning_steps %}
-        <li class="list-group-item">{{ step }}</li>
+        <li class="list-group-item"><pre>{{ step|safe }}</pre></li>
         {% endfor %}
     </ul>
     {% endif %}
@@ -51,7 +51,7 @@
     <h5 class="mt-4">Sources Used:</h5>
     <ul class="list-group">
         {% for snippet in snippets %}
-        <li class="list-group-item">{{ snippet }}</li>
+        <li class="list-group-item"><pre>{{ snippet|safe }}</pre></li>
         {% endfor %}
     </ul>
     {% endif %}

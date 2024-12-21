@@ -1,5 +1,5 @@
 import os
-
+import markdown
 from flask import Flask, render_template, request, jsonify, session
 
 from services import main_processors, cv_processors, rag_agent_processors
@@ -29,7 +29,14 @@ def basic_gpt():
 
         processed_input = main_processors.process_input(user_input, session['chat_history'])
 
-        session['chat_history'].append({"role": "assistant", "content": processed_input})
+        processed_input_html = markdown.markdown(processed_input)
+
+        # Append the assistant's processed response to the chat history
+        session['chat_history'].append({
+            "role": "assistant",
+            "content": processed_input_html  # Use HTML-formatted response
+        })
+
         session.modified = True
 
         return render_template('basic_gpt.html', chat_history=session['chat_history'])
@@ -66,8 +73,10 @@ def basic_rag():
                 chat_history=session['rag_chat_history']
             )
 
+            response_content_html = markdown.markdown(response_content)
+
             # Append assistant's response to chat history
-            session['rag_chat_history'].append({"role": "assistant", "content": response_content})
+            session['rag_chat_history'].append({"role": "assistant", "content": response_content_html})
 
             session.modified = True
 
@@ -101,6 +110,10 @@ def rag_agent():
             snippets = result.get("snippets", [])
             message = "Agent processed successfully."
 
+            # Convert final_answer to HTML using markdown
+            if final_answer:
+                final_answer = markdown.markdown(final_answer)
+
     return render_template('rag_agent.html',
         message=message,
         reasoning_steps=reasoning_steps,
@@ -132,6 +145,10 @@ def cv_generator():
             final_answer = result.get("final_answer", "No response generated.")
             snippets = result.get("snippets", [])
             message = "CV processed successfully."
+
+            # Convert final_answer to HTML using markdown
+            if final_answer:
+                final_answer = markdown.markdown(final_answer)
 
     return render_template('cv_generator.html',
         message=message,
