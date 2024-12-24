@@ -48,6 +48,7 @@ def load_embedding_model():
 
 
 def documents_loader(source_data_path, persist_directory):
+    """insert files into vector database persist directory."""
     _source_data = os.path.join(settings.project_root, str(source_data_path))
     _persist_dir = os.path.join(settings.project_root, str(persist_directory))
 
@@ -71,6 +72,7 @@ def documents_loader(source_data_path, persist_directory):
 
 
 def load_vector_store(source_data_folder):
+    """Retrieves data from persist folder and loads it into a VectorStoreIndex."""
     # Check if the persist directory is empty
     if not os.listdir(source_data_folder):
         print(f"Warning: The persist directory '{source_data_folder}' is empty.")
