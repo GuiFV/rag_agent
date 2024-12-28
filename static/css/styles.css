@@ -38,3 +38,17 @@ h1, h4 {
     line-height: 1; /* Adjusted line height to prevent navbar height expansion */
     padding: 0; /* Removed extra padding around the text */
 }
+
+/* Chat Box Styling */
+.chat-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    height: calc(100vh - 300px);
+    overflow-y: scroll;
+    overflow-wrap: break-word; /* Ensure long words break within the box */
+}
+
+.pre-wrap {
+    white-space: pre-wrap; /* Preserve whitespace and line breaks */
+    overflow-wrap: break-word; /* Break long words to fit within the container */
+}

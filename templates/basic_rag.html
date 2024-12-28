@@ -6,12 +6,12 @@
     <h4>Basic RAG Chat</h4>
 
     <!-- Chat Display -->
-    <div class="chat-box" style="border: 1px solid #ccc; padding: 10px; height: calc(100vh - 300px); overflow-y: scroll;">
+    <div class="chat-box">
         {% for message in chat_history %}
             <div class="{{ message.role }}">
                 <strong>{{ message.role.capitalize() }}:</strong>
                 <br>
-                <pre>{{ message.content|safe }}</pre>
+                <pre class="pre-wrap">{{ message.content|safe }}</pre>
                 <br>
             </div>
         {% endfor %}
