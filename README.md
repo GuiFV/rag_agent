@@ -20,8 +20,12 @@
 - activate virtual env `source .venv/bin/activate` (for windows: `.\.venv\Scripts\activate`)
 - install requirements `pip install -r requirements.txt`
 - install Ollama `https://ollama.com/`
-- (OPTIONAL) get an OpenAI API key if you are not using local models
-- (OPTIONAL) set secrets under OPENAI_API_KEY and LLAMA_CLOUD_API_KEY in a .env file on the root folder
+- insert into .ven file on the root folder level with the following variables:
+  - OPENAI_API_KEY=optional
+  - LLAMA_CLOUD_API_KEY=not in use
+  - WOLFRAMALPHA_APPI=not in use
+  - GOOGLE_SEARCH_API_KEY=optional. create one here:https://developers.google.com/custom-search/v1/overview
+  - GOOGLE_ENGINE=optional. insert just the cx code. create one here: https://programmablesearchengine.google.com/controlpanel/all)
 - make necessary changes under settings.py
 - run the app `python app.py`
 - open `http://127.0.0.1:8123`

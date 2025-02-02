@@ -1,6 +1,7 @@
 import os
 
 from llama_index.core.tools import QueryEngineTool
+from llama_index.tools.google import GoogleSearchToolSpec
 
 import settings
 from services.agent_processors import process_agent, query_engine_loader
@@ -17,10 +18,13 @@ def rag_agent_tools():
         description="A RAG engine tool containing the user's personal files."
     )
 
-    # todo: wolframalpha_tool - https://llamahub.ai/l/tools/llama-index-tools-wolfram-alpha?from=
-    # todo: web search tool
+    google_spec = GoogleSearchToolSpec(key=settings.GOOGLE_SEARCH_API_KEY, engine=settings.GOOGLE_ENGINE)
+    google_tool = google_spec.to_tool_list()
+    return [files_tool] + google_tool
 
-    return [files_tool]
+
+    # todo: wolframalpha_tool - https://llamahub.ai/l/tools/llama-index-tools-wolfram-alpha?from=
+
 
 
 def process_rag_agent(data_source):

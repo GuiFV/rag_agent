@@ -3,6 +3,23 @@ import os
 import torch
 import numpy as np
 
+"""Required variables"""
+
+USE_LOCAL_LLAMA = True  # Set False to use OpenAI API
+OPENAI_MODEL = "gpt-4"
+LLAMA_MODEL = "llama3.2" # "deepseek-r1:7b"  #  "deepseek-r1:32b"
+TEMPERATURE = 0.2  # Set the temperature for the models
+REQUEST_TIMEOUT = 60.0  # Set the request timeout for the models
+HUGGINGFACE_EMBEDDING_MODEL = "BAAI/bge-base-en-v1.5"
+
+WOLFRAM_ALPHA_APPID = os.getenv("WOLFRAMALPHA_APPI", "")
+GOOGLE_SEARCH_API_KEY = os.getenv("GOOGLE_SEARCH_API_KEY", "")
+GOOGLE_ENGINE = os.getenv("GOOGLE_ENGINE", "")
+
+
+project_root = os.path.dirname(os.path.abspath(__file__))
+
+
 """Optional variables (performance related - can be omitted)"""
 
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
@@ -22,15 +39,3 @@ torch.set_num_interop_threads(max(1, performance_cores // 4))  # Dynamic inter-o
 print(f"PyTorch uses {torch.get_num_threads()} threads")
 print("NumPy config:")
 print(np.__config__.show())
-
-
-"""Required variables"""
-
-USE_LOCAL_LLAMA = True  # Set False to use OpenAI API
-OPENAI_MODEL = "gpt-4"
-LLAMA_MODEL = "llama3.2"
-TEMPERATURE = 0.2  # Set the temperature for the models
-REQUEST_TIMEOUT = 60.0  # Set the request timeout for the models
-HUGGINGFACE_EMBEDDING_MODEL = "BAAI/bge-base-en-v1.5"
-
-project_root = os.path.dirname(os.path.abspath(__file__))
